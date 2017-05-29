@@ -1,5 +1,6 @@
 #!/bin/env python
-from helpers import write_file, read_file, save_dict_to_JSON
+from helpers import write_file, read_file, convert_JSON_to_dict, save_dict_to_JSON
+from os import path, makedirs
 from process import Process
 
 class Core(object):
@@ -31,7 +32,7 @@ class Core(object):
         """
 
         result = Process(command).execute()
-        destination = self.OUTPUT_DESTINATION + destination
+        destination = self.QUERY_OUTPUT_DESTINATION + destination
 
         write_file(result,destination)
         return
@@ -55,14 +56,13 @@ class Core(object):
 
         if self.languages != []:
             for language in self.languages:
-                destination = language + '.json'
-                cmd = self.COMMAND_BASE + self.URL_LANGUAGE + destination
+                cmd = self.COMMAND_BASE + self.URL_LANGUAGE + language
 
-                self.execute_save_cmd(cmd,destination)
+                self.execute_save_cmd(cmd,language + '.json')
 
-                content = read_file(self.QUERY_OUTPUT_DESTINATION + destination)
+                content = read_file(self.QUERY_OUTPUT_DESTINATION + language + '.json')
+
                 translators_dict =  convert_JSON_to_dict(content)
-
                 self.translators.extend(translators_dict['translators'])
                 print('List of %s translators obtained' % language)
 
@@ -77,6 +77,9 @@ class Core(object):
         """Get language, then get the list of translators.
         In between, we return an error in case we can't get information from transifex
         """
+
+        if not path.exists(self.QUERY_OUTPUT_DESTINATION):
+            makedirs(self.QUERY_OUTPUT_DESTINATION)
 
         if self.get_translated_languages():
             if self.get_list_translators():
