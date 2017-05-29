@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#    https://github.com/funilrys/Fasternix-Stratalorn
+#    Original Version: https://github.com/funilrys/Fasternix-Stratalorn
 
 from json import loads, dump
 
