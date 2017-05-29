@@ -87,5 +87,6 @@ class Core(object):
                 rmtree(self.QUERY_OUTPUT_DESTINATION)
                 print('You can find your list of translators into %s =)' % path.abspath(self.OUTPUT_DESTINATION))
                 exit()
+        rmtree(self.QUERY_OUTPUT_DESTINATION)
         print('Authorization Required or Wrong project slug')
         exit()
