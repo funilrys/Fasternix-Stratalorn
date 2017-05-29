@@ -13,3 +13,4 @@ class Core(object):
         self.OUTPUT_DESTINATION = './translators.json'
 
         self.URL_DETAILS = self.BASE_URL + '/?details'
+        self.URL_LANGUAGE = self.BASE_URL + '/language/'
