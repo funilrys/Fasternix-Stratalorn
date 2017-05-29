@@ -27,3 +27,13 @@ def convert_JSON_to_dict(data):
     """
 
     return loads(data)
+
+def save_dict_to_JSON(data,destination):
+    """Save a dictionary into a JSON format
+
+    :param data: A dict
+    :param destination: A string, A path to a file where we're going to write the converted dict into a JSON format
+    """
+
+    with open(destination, 'w') as file:
+        dump(data, file, ensure_ascii=False, indent=4, sort_keys=True)
