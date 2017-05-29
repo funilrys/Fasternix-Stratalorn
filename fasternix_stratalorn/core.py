@@ -7,3 +7,5 @@ class Core(object):
         self.username = username
         self.password = password
         self.project_slug = project_slug
+
+        self.BASE_URL = 'http://www.transifex.com/api/2/project/' + self.project_slug
