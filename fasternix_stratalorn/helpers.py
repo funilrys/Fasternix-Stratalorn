@@ -19,3 +19,11 @@ def read_file(file_to_read):
     with open(file_to_read,'r') as file:
         funilrys = file.read()
     return funilrys
+
+def convert_JSON_to_dict(data):
+    """Convert a JSON into a dictionary
+
+    :param data: A string, a JSON formated string
+    """
+
+    return loads(data)
