@@ -1,5 +1,5 @@
 #!/bin/env python
-from helpers import write_file, read_file
+from helpers import write_file, read_file, save_dict_to_JSON
 from process import Process
 
 class Core(object):
@@ -47,5 +47,28 @@ class Core(object):
         content = read_file(self.QUERY_OUTPUT_DESTINATION + destination)
         if content != "Authorization Required":
             self.languages = convert_JSON_to_dict(content)['teams']
+            return True
+        return False
+
+    def get_list_translators(self):
+        """Get the list of translators of the project."""
+
+        if self.languages != []:
+            for language in self.languages:
+                destination = language + '.json'
+                cmd = self.COMMAND_BASE + self.URL_LANGUAGE + destination
+
+                self.execute_and_save_command(cmd,destination)
+
+                content = read_file(self.QUERY_OUTPUT_DESTINATION + destination)
+                translators_dict =  convert_JSON_to_dict(content)
+
+                self.translators.extend(translators_dict['translators'])
+                print('List of %s translators obtained' % language)
+
+            translators_formated_list = sorted(list(set(self.translators)),key=str.lower)
+            result = {'translators':translators_formated_list}
+            save_dict_to_JSON(result,self.OUTPUT_DESTINATION)
+
             return True
         return False
