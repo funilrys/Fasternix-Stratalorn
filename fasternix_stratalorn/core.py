@@ -14,3 +14,8 @@ class Core(object):
 
         self.URL_DETAILS = self.BASE_URL + '/?details'
         self.URL_LANGUAGE = self.BASE_URL + '/language/'
+
+        self.COMMAND_BASE = 'curl -L --user ' + self.ID + ' -X GET '
+
+        self.languages = []
+        self.translators = []
