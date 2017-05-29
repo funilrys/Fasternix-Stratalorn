@@ -25,6 +25,6 @@ class Process(object):
         process = Popen(self.command,stdout=PIPE, stderr=PIPE, shell=True)
         (output,error) = process.communicate()
 
-        if process.return_code != 0:
+        if process.returncode != 0:
             return self.decode_output(error)
         return self.decode_output(output)

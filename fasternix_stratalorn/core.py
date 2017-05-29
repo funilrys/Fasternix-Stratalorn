@@ -42,7 +42,7 @@ class Core(object):
         cmd = self.COMMAND_BASE + self.URL_DETAILS
         destination = 'details.json'
 
-        self.execute_and_save_command(cmd, destination)
+        self.execute_save_cmd(cmd, destination)
 
         content = read_file(self.QUERY_OUTPUT_DESTINATION + destination)
         if content != "Authorization Required":
@@ -58,7 +58,7 @@ class Core(object):
                 destination = language + '.json'
                 cmd = self.COMMAND_BASE + self.URL_LANGUAGE + destination
 
-                self.execute_and_save_command(cmd,destination)
+                self.execute_save_cmd(cmd,destination)
 
                 content = read_file(self.QUERY_OUTPUT_DESTINATION + destination)
                 translators_dict =  convert_JSON_to_dict(content)
