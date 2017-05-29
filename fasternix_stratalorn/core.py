@@ -10,3 +10,5 @@ class Core(object):
 
         self.BASE_URL = 'http://www.transifex.com/api/2/project/' + self.project_slug
         self.ID = self.username + ':' + self.password
+        self.OUTPUT_DESTINATION = './translators.json'
+        
