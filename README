@@ -1,0 +1,19 @@
+Fasternix Stratalorn
+=============
+
+Python module/library for saving the list of translators of a given Transifex project into a JSON file.
+
+By Funilrys  http://github.com/funilrys
+
+
+Features
+=============
+ * Works with python3.x **ONLY**
+ * Access transifex project details
+ * Get list of translators of a whole project
+
+
+Usage example
+=============
+
+>>> fasternix_stratalorn
