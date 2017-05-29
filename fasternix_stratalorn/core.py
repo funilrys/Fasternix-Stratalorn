@@ -72,3 +72,15 @@ class Core(object):
 
             return True
         return False
+
+    def get(self):
+        """Get language, then get the list of translators.
+        In between, we return an error in case we can't get information from transifex
+        """
+
+        if self.get_translated_languages():
+            if self.get_list_translators():
+                print('You can find your list of translators into %s =)' % path.abspath(self.OUTPUT_DESTINATION))
+                exit()
+        print('Authorization Required or Wrong project slug')
+        exit()
