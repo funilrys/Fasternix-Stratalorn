@@ -1,5 +1,5 @@
 #!/bin/env python
-from subprocess import Popen, PIP
+from subprocess import Popen, PIPE
 
 class Process(object):
     """A class to manipulate shell commands
