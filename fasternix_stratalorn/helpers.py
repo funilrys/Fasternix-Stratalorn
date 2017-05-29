@@ -9,3 +9,13 @@ def write_file(content,destination):
 
     with open(destination,'w') as file:
         file.write(content)
+
+def read_file(file_to_read):
+    """Read the content of a given file
+
+    :param file_to_read: A string, a path to the file we have to read
+    """
+
+    with open(file_to_read,'r') as file:
+        funilrys = file.read()
+    return funilrys
