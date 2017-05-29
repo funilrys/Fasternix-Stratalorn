@@ -1,4 +1,5 @@
 #!/bin/env python
+from json import loads, dump
 
 def write_file(content,destination):
     """Write a content in a given file
