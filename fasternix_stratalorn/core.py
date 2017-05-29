@@ -2,6 +2,7 @@
 from helpers import write_file, read_file, convert_JSON_to_dict, save_dict_to_JSON
 from os import path, makedirs
 from process import Process
+from shutil import rmtree
 
 class Core(object):
     """Brain of the program. Get the list of translators from a Transifex project"""
@@ -83,6 +84,7 @@ class Core(object):
 
         if self.get_translated_languages():
             if self.get_list_translators():
+                rmtree(self.QUERY_OUTPUT_DESTINATION)
                 print('You can find your list of translators into %s =)' % path.abspath(self.OUTPUT_DESTINATION))
                 exit()
         print('Authorization Required or Wrong project slug')
