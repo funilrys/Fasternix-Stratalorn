@@ -1,5 +1,5 @@
 #!/bin/env python
-from helpers import write_file
+from helpers import write_file, read_file
 from process import Process
 
 class Core(object):
@@ -34,4 +34,18 @@ class Core(object):
         destination = self.OUTPUT_DESTINATION + destination
 
         write_file(result,destination)
-        return 
+        return
+
+    def get_translated_languages(self):
+        """Get the list of translated languages in the project."""
+
+        cmd = self.COMMAND_BASE + self.URL_DETAILS
+        destination = 'details.json'
+
+        self.execute_and_save_command(cmd, destination)
+
+        content = read_file(self.QUERY_OUTPUT_DESTINATION + destination)
+        if content != "Authorization Required":
+            self.languages = convert_JSON_to_dict(content)['teams']
+            return True
+        return False
