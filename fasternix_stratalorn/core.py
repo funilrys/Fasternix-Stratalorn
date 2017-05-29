@@ -9,3 +9,4 @@ class Core(object):
         self.project_slug = project_slug
 
         self.BASE_URL = 'http://www.transifex.com/api/2/project/' + self.project_slug
+        self.ID = self.username + ':' + self.password
