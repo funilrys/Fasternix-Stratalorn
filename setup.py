@@ -20,7 +20,7 @@ setup(
     long_description=open('README').read(),
     author='funilrys',
     author_email='contact@funilrys.com',
-    license='GPL-3.0 https://opensource.org/licenses/GPL-3.0',
+    license='MIT https://opensource.org/licenses/MIT',
     url='https://github.com/funilrys/Fasternix-Stratalorn',
     platforms=['any'],
     packages=['fasternix_stratalorn'],
