@@ -1,11 +1,8 @@
 # Fasternix Stratalorn (Transifex Translators)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub release](https://img.shields.io/github/release/funilrys/Fasternix-Stratalorn.svg)](https://github.com/funilrys/Fasternix-Stratalorn/releases/tag/1.0.0) [![GitHub commits](https://img.shields.io/github/commits-since/funilrys/Fasternix-Stratalorn/1.0.0.svg)](https://github.com/funilrys/Fasternix-Stratalorn/commits/master) [![Transifex API](https://img.shields.io/badge/Transifex%20API-v2-blue.svg)](https://docs.transifex.com/api/introduction)
+
 > Python module/library for saving the list of translators of a given Transifex project into a JSON file.
-
-## Versions
-
-**Current version of the repository:** _1.0.0_ 
-**Transifex API version:** _2_
 
 ## Freatures
 
