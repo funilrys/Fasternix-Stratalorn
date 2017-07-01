@@ -13,7 +13,8 @@
 #
 # Original Version: https://github.com/funilrys/Fasternix-Stratalorn
 
-from subprocess import Popen, PIPE
+from subprocess import PIPE, Popen
+
 
 class Process(object):
     """A class to manipulate shell commands
@@ -25,7 +26,7 @@ class Process(object):
         self.DECODE_TYPE = 'utf-8'
         self.command = command
 
-    def decode_output(self,to_decode):
+    def decode_output(self, to_decode):
         """Decode the output of a shell command in order to be readable
 
         :param to_decode: byte(s), Output of a command
@@ -36,8 +37,8 @@ class Process(object):
     def execute(self):
         """Execute a given command"""
 
-        process = Popen(self.command,stdout=PIPE, stderr=PIPE, shell=True)
-        (output,error) = process.communicate()
+        process = Popen(self.command, stdout=PIPE, stderr=PIPE, shell=True)
+        (output, error) = process.communicate()
 
         if process.returncode != 0:
             return self.decode_output(error)

@@ -13,10 +13,13 @@
 #
 # Original Version: https://github.com/funilrys/Fasternix-Stratalorn
 
-from helpers import write_file, read_file, convert_JSON_to_dict, save_dict_to_JSON
-from os import path, makedirs
-from process import Process
+from os import makedirs, path
 from shutil import rmtree
+
+from helpers import (convert_JSON_to_dict, read_file, save_dict_to_JSON,
+                     write_file)
+from process import Process
+
 
 class Core(object):
     """Brain of the program. Get the list of translators from a Transifex project"""
@@ -39,7 +42,7 @@ class Core(object):
         self.languages = []
         self.translators = []
 
-    def execute_save_cmd(self,command, destination):
+    def execute_save_cmd(self, command, destination):
         """Execute and save the result of a command into a defined file.
 
         :param command: A string, the command to execute in shell format
@@ -49,7 +52,7 @@ class Core(object):
         result = Process(command).execute()
         destination = self.QUERY_OUTPUT_DESTINATION + destination
 
-        write_file(result,destination)
+        write_file(result, destination)
         return
 
     def get_translated_languages(self):
@@ -73,17 +76,19 @@ class Core(object):
             for language in self.languages:
                 cmd = self.COMMAND_BASE + self.URL_LANGUAGE + language
 
-                self.execute_save_cmd(cmd,language + '.json')
+                self.execute_save_cmd(cmd, language + '.json')
 
-                content = read_file(self.QUERY_OUTPUT_DESTINATION + language + '.json')
+                content = read_file(
+                    self.QUERY_OUTPUT_DESTINATION + language + '.json')
 
-                translators_dict =  convert_JSON_to_dict(content)
+                translators_dict = convert_JSON_to_dict(content)
                 self.translators.extend(translators_dict['translators'])
                 print('List of %s translators obtained' % language)
 
-            translators_formated_list = sorted(list(set(self.translators)),key=str.lower)
-            result = {'translators':translators_formated_list}
-            save_dict_to_JSON(result,self.OUTPUT_DESTINATION)
+            translators_formated_list = sorted(
+                list(set(self.translators)), key=str.lower)
+            result = {'translators': translators_formated_list}
+            save_dict_to_JSON(result, self.OUTPUT_DESTINATION)
 
             return True
         return False
@@ -99,7 +104,8 @@ class Core(object):
         if self.get_translated_languages():
             if self.get_list_translators():
                 rmtree(self.QUERY_OUTPUT_DESTINATION)
-                print('You can find your list of translators into %s =)' % path.abspath(self.OUTPUT_DESTINATION))
+                print('You can find your list of translators into %s =)' %
+                      path.abspath(self.OUTPUT_DESTINATION))
                 exit()
         rmtree(self.QUERY_OUTPUT_DESTINATION)
         print('Authorization Required or Wrong project slug')
