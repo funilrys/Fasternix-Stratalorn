@@ -1,14 +1,14 @@
 # Fasternix Stratalorn (Transifex Translators)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub release](https://img.shields.io/github/release/funilrys/Fasternix-Stratalorn.svg)](https://github.com/funilrys/Fasternix-Stratalorn/releases/tag/1.0.0) [![GitHub commits](https://img.shields.io/github/commits-since/funilrys/Fasternix-Stratalorn/1.0.0.svg)](https://github.com/funilrys/Fasternix-Stratalorn/commits/master) [![Transifex API](https://img.shields.io/badge/Transifex%20API-v2-blue.svg)](https://docs.transifex.com/api/introduction)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub release](https://img.shields.io/github/release/funilrys/Fasternix-Stratalorn.svg)](https://github.com/funilrys/Fasternix-Stratalorn/releases/tag/1.0.1) [![GitHub commits](https://img.shields.io/github/commits-since/funilrys/Fasternix-Stratalorn/1.0.1.svg)](https://github.com/funilrys/Fasternix-Stratalorn/commits/master) [![Transifex API](https://img.shields.io/badge/Transifex%20API-v2-blue.svg)](https://docs.transifex.com/api/introduction)
 
 > Python module/library for saving the list of translators of a given Transifex project into a JSON file.
 
 ## Freatures
 
-- Works with python3.x **ONLY**
-- Access transifex project details
-- Get list of translators of a whole project
+- Works with python3.x and python2.x
+- Access Transifex project details
+- Get list of translators of a whole project and save the result into a JSON file
 
 ## Installation
 
@@ -19,11 +19,13 @@ https://github.com/funilrys/Fasternix-Stratalorn.git
 cd Fasternix-Stratalorn && python setup.py install
 ```
 
-## Create executable
+## Example of usage
 
-```bash
-# This allow you to execute fasternix-stratalorn from everywhere into the terminal
-ln -s /usr/lib/python3.6/site-package/fasternix_stratalorn/__init__.py /usr/bin/fasternix-stratalorn
+```python
+# This save the output into 'translators.json' in your current location
+from fasternix_stratalorn import get
+
+get('funilrys','desktop-app')
 ```
 
 --------------------------------------------------------------------------------
@@ -39,22 +41,6 @@ To contribute, you have to **send a new [Pull Request](https://github.com/funilr
 - To sign your commit(s) with **"Signed-off by: FirstName LastName < email at service dot com >"** _**and/or**_ simply **sign your commit(s)** with **PGP** _(Please read more [here](https://github.com/blog/2144-gpg-signature-verification))_.
 - All **contributions/modifications** must be done under **the `dev` or a new branch** if you plan to **send a new [Pull Request](https://github.com/funilrys/Fasternix-Stratalorn/compare)**.
 - :warning::warning::warning: Every **contributions/modifications** which are under **master** _(exception for minor changes)_ **will not be merged**.
-
---------------------------------------------------------------------------------
-
-# Example of usage
-
-```bash
-# This save the output into your current location
-$ fasternix-stratalorn
-Transifex username: funilrys
-Transifex password:
-Transifex project_slug: hello-world-fake
-List of af translators obtained
-[...]
-List of vi_VN translators obtained
-You can find your list of translators into /home/funilrys/translators.json =)
-```
 
 --------------------------------------------------------------------------------
 
