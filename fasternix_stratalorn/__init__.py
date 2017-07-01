@@ -1,5 +1,3 @@
-#!/bin/env python
-
 # Fasternix Stratalorn -  Python module/library for saving the list of translators of a given Transifex project into a JSON file.
 # Copyright (C) 2017  Funilrys - Nissar Chababy <contact at funilrys dot com>
 #
@@ -15,17 +13,13 @@
 
 from getpass import getpass
 
-from core import Core
+from .core import Core
+from .helpers import clear_screen
 
 
-def get_translators(username, password, project_slug):
+def get(username, project_slug):
     """Send data and perform Core()"""
+    password = getpass('Transifex password: ')
+    clear_screen()
 
     return Core(username, password, project_slug).get()
-
-
-username = input('Transifex username: ')
-password = getpass('Transifex password: ')
-project_slug = input('Transifex project_slug: ')
-
-get_translators(username, password, project_slug)
