@@ -13,6 +13,7 @@
 
 from os import makedirs, path
 from shutil import rmtree
+from sys import version_info
 
 from .helpers import (clear_screen, convert_JSON_to_dict, execute_save_cmd,
                       format_list, read_file, save_dict_to_JSON, write_file)
@@ -60,6 +61,11 @@ class Core(object):
         """Get the list of translators of the project."""
 
         if self.languages != []:
+            if(version_info[0] >= 3):
+                done = '✔'
+            else:
+                done = '✔'.decode('utf-8')
+
             for language in self.languages:
                 cmd = self.COMMAND_BASE + self.URL_LANGUAGE + language
 
@@ -71,7 +77,6 @@ class Core(object):
 
                 translators_dict = convert_JSON_to_dict(content)
                 self.translators.extend(translators_dict['translators'])
-                done = "✔".decode('utf-8')
 
                 print('\033[1m\033[96m%s\033[0m translators %s' %
                       (language, done))
