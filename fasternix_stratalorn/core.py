@@ -1,5 +1,3 @@
-#!/bin/env python
-
 # Fasternix Stratalorn -  Python module/library for saving the list of translators of a given Transifex project into a JSON file.
 # Copyright (C) 2017  Funilrys - Nissar Chababy <contact at funilrys dot com>
 #
@@ -16,9 +14,9 @@
 from os import makedirs, path
 from shutil import rmtree
 
-from helpers import (convert_JSON_to_dict, read_file, save_dict_to_JSON,
-                     write_file)
-from process import Process
+from .helpers import (clear_screen, convert_JSON_to_dict, execute_save_cmd,
+                      format_list, read_file, save_dict_to_JSON, write_file)
+from .process import Process
 
 
 class Core(object):
@@ -31,6 +29,7 @@ class Core(object):
 
         self.BASE_URL = 'http://www.transifex.com/api/2/project/' + self.project_slug
         self.ID = self.username + ':' + self.password
+
         self.OUTPUT_DESTINATION = './translators.json'
         self.QUERY_OUTPUT_DESTINATION = './query_results/'
 
@@ -42,32 +41,20 @@ class Core(object):
         self.languages = []
         self.translators = []
 
-    def execute_save_cmd(self, command, destination):
-        """Execute and save the result of a command into a defined file.
-
-        :param command: A string, the command to execute in shell format
-        :param destination: A string, the location where we're going to save the result(s)
-        """
-
-        result = Process(command).execute()
-        destination = self.QUERY_OUTPUT_DESTINATION + destination
-
-        write_file(result, destination)
-        return
-
     def get_translated_languages(self):
         """Get the list of translated languages in the project."""
 
         cmd = self.COMMAND_BASE + self.URL_DETAILS
-        destination = 'details.json'
+        destination = self.QUERY_OUTPUT_DESTINATION + 'details.json'
 
-        self.execute_save_cmd(cmd, destination)
+        execute_save_cmd(cmd, destination)
 
-        content = read_file(self.QUERY_OUTPUT_DESTINATION + destination)
-        if content != "Authorization Required":
+        content = read_file(destination)
+
+        if content != "Authorization Required" and content != "Not Found":
             self.languages = convert_JSON_to_dict(content)['teams']
             return True
-        return False
+        return content
 
     def get_list_translators(self):
         """Get the list of translators of the project."""
@@ -76,17 +63,20 @@ class Core(object):
             for language in self.languages:
                 cmd = self.COMMAND_BASE + self.URL_LANGUAGE + language
 
-                self.execute_save_cmd(cmd, language + '.json')
+                execute_save_cmd(
+                    cmd, self.QUERY_OUTPUT_DESTINATION + language + '.json')
 
                 content = read_file(
                     self.QUERY_OUTPUT_DESTINATION + language + '.json')
 
                 translators_dict = convert_JSON_to_dict(content)
                 self.translators.extend(translators_dict['translators'])
-                print('List of %s translators obtained' % language)
+                done = "✔".decode('utf-8')
 
-            translators_formated_list = sorted(
-                list(set(self.translators)), key=str.lower)
+                print('\033[1m\033[96m%s\033[0m translators %s' %
+                      (language, done))
+
+            translators_formated_list = format_list(self.translators)
             result = {'translators': translators_formated_list}
             save_dict_to_JSON(result, self.OUTPUT_DESTINATION)
 
@@ -101,12 +91,16 @@ class Core(object):
         if not path.exists(self.QUERY_OUTPUT_DESTINATION):
             makedirs(self.QUERY_OUTPUT_DESTINATION)
 
-        if self.get_translated_languages():
+        funilrys = self.get_translated_languages()
+        if funilrys:
             if self.get_list_translators():
                 rmtree(self.QUERY_OUTPUT_DESTINATION)
-                print('You can find your list of translators into %s =)' %
+                clear_screen()
+                print('You can find your list of translators into \033[1m\033[93m%s \033[96m=)\033[0m' %
                       path.abspath(self.OUTPUT_DESTINATION))
                 exit()
+
         rmtree(self.QUERY_OUTPUT_DESTINATION)
-        print('Authorization Required or Wrong project slug')
+
+        print(funilrys)
         exit()
