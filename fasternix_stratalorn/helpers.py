@@ -42,6 +42,15 @@ def execute_save_cmd(command, destination):
     return
 
 
+def execute_return_cmd(command):
+    """Execute and return the result of a command.
+
+    :param command: A string, the command to execture in shell format
+    """
+
+    return Process(command).execute()
+
+
 def read_file(file_to_read):
     """Read the content of a given file
 
