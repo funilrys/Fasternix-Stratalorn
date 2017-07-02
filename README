@@ -9,8 +9,10 @@ By Funilrys  http://github.com/funilrys
 Features
 =============
  * Works with python3.x and python2.x
- * Access transifex project details
- * Get list of translators of a whole project and save the results into a JSON file
+ * Access Transifex project details
+ * Get list of translators and save the result into a JSON file
+ * Get list of translators and return the result in Python `dict` format
+ * Get list of translators and return the result in Python `list` format
 
 
 Usage example
@@ -19,3 +21,5 @@ Usage example
 >>> # This save the output into 'translators.json' in your current location
 >>> from fasternix_stratalorn import get
 >>> get('funilrys','desktop-app')
+
+For more please report to https://github.com/funilrys/Fasternix-Stratalorn
