@@ -17,9 +17,9 @@ from .core import Core
 from .helpers import clear_screen
 
 
-def get(username, project_slug):
+def get(username, project_slug, **args):
     """Send data and perform Core()"""
     password = getpass('Transifex password: ')
     clear_screen()
 
-    return Core(username, password, project_slug).get()
+    return Core(username, password, project_slug, **args).get()
