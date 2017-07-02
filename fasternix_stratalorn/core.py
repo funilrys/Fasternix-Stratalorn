@@ -15,8 +15,9 @@ from os import makedirs, path
 from shutil import rmtree
 from sys import version_info
 
-from .helpers import (clear_screen, convert_JSON_to_dict, execute_save_cmd,
-                      format_list, read_file, save_dict_to_JSON, write_file)
+from .helpers import (clear_screen, convert_JSON_to_dict, execute_return_cmd,
+                      execute_save_cmd, format_list, read_file,
+                      save_dict_to_JSON, write_file)
 from .process import Process
 
 
@@ -100,14 +101,10 @@ class Core(object):
             for language in self.languages:
                 cmd = self.COMMAND_BASE + self.URL_LANGUAGE + language
 
-                execute_save_cmd(
-                    cmd, self.QUERY_OUTPUT_DESTINATION + language + '.json')
+                transifex_lang_output = convert_JSON_to_dict(execute_return_cmd(
+                    cmd))
 
-                content = read_file(
-                    self.QUERY_OUTPUT_DESTINATION + language + '.json')
-
-                translators_dict = convert_JSON_to_dict(content)
-                self.translators.extend(translators_dict['translators'])
+                self.translators.extend(transifex_lang_output['translators'])
 
                 if self.return_list == False and self.return_dict == False:
                     print('\033[1m\033[96m%s\033[0m translators %s' %
