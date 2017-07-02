@@ -1,5 +1,5 @@
 # Fasternix Stratalorn -  Python module/library for saving the list of translators of a given Transifex project into a JSON file.
-# Copyright (C) 2017  Funilrys - Nissar Chababy <contact at funilrys dot com>
+# Copyright (C) 2017 Nissar Chababy <contact at funilrys dot com>
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,7 +15,7 @@ from distutils.core import setup
 
 setup(
     name='fasternix_stratalorn',
-    version="1.0.1",
+    version="1.1.0",
     description='Python module/library for saving the list of translators of a given Transifex project into a JSON file.',
     long_description=open('README').read(),
     author='funilrys',
