@@ -23,7 +23,7 @@ from .process import Process
 class Core(object):
     """Brain of the program. Get the list of translators from a Transifex project"""
 
-    def __init__(self, username, password, project_slug):
+    def __init__(self, username, password, project_slug, **args):
         self.username = username
         self.password = password
         self.project_slug = project_slug
@@ -37,7 +37,16 @@ class Core(object):
         self.URL_DETAILS = self.BASE_URL + '/?details'
         self.URL_LANGUAGE = self.BASE_URL + '/language/'
 
-        self.COMMAND_BASE = 'curl -L --user ' + self.ID + ' -X GET '
+        self.COMMAND_BASE = "curl -L --user " + self.ID + " -X GET "
+
+        optional_arguments = {
+            "return_dict": False,
+            "return_list": False,
+            "save_in_file": True,
+        }
+
+        for (arg, default) in optional_arguments.items():
+            setattr(self, arg, args.get(arg, default))
 
         self.languages = []
         self.translators = []
@@ -57,14 +66,36 @@ class Core(object):
             return True
         return content
 
+    def format_result(self):
+        """Return a formated list or a formated dict"""
+
+        translators_formated_list = format_list(self.translators)
+        formated_dict = {'translators':  translators_formated_list}
+
+        if self.return_list and self.return_dict or self.return_dict:
+            self.result = formated_dict
+        elif self.return_list:
+            self.result = translators_formated_list
+        else:
+            self.result = formated_dict
+
+    def save_dict(self):
+        """Save result into a file"""
+
+        if self.save_in_file and isinstance(self.result, dict):
+            save_dict_to_JSON(self.result, self.OUTPUT_DESTINATION)
+            return True
+        return False
+
     def get_list_translators(self):
         """Get the list of translators of the project."""
 
         if self.languages != []:
-            if(version_info[0] >= 3):
-                done = '✔'
-            else:
-                done = '✔'.decode('utf-8')
+            if self.return_list == False and self.return_dict == False:
+                if(version_info[0] >= 3):
+                    done = '✔'
+                else:
+                    done = '✔'.decode('utf-8')
 
             for language in self.languages:
                 cmd = self.COMMAND_BASE + self.URL_LANGUAGE + language
@@ -78,12 +109,12 @@ class Core(object):
                 translators_dict = convert_JSON_to_dict(content)
                 self.translators.extend(translators_dict['translators'])
 
-                print('\033[1m\033[96m%s\033[0m translators %s' %
-                      (language, done))
+                if self.return_list == False and self.return_dict == False:
+                    print('\033[1m\033[96m%s\033[0m translators %s' %
+                          (language, done))
 
-            translators_formated_list = format_list(self.translators)
-            result = {'translators': translators_formated_list}
-            save_dict_to_JSON(result, self.OUTPUT_DESTINATION)
+            self.format_result()
+            self.save_dict()
 
             return True
         return False
@@ -101,9 +132,11 @@ class Core(object):
             if self.get_list_translators():
                 rmtree(self.QUERY_OUTPUT_DESTINATION)
                 clear_screen()
-                print('You can find your list of translators into \033[1m\033[93m%s \033[96m=)\033[0m' %
-                      path.abspath(self.OUTPUT_DESTINATION))
-                exit()
+                if self.save_dict() and self.return_list == False and self.return_dict == False:
+                    print('You can find your list of translators into \033[1m\033[93m%s \033[96m=)\033[0m' %
+                          path.abspath(self.OUTPUT_DESTINATION))
+                    exit()
+                return self.result
 
         rmtree(self.QUERY_OUTPUT_DESTINATION)
 
