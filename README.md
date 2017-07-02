@@ -1,31 +1,62 @@
 # Fasternix Stratalorn (Transifex Translators)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub release](https://img.shields.io/github/release/funilrys/Fasternix-Stratalorn.svg)](https://github.com/funilrys/Fasternix-Stratalorn/releases/tag/1.0.1) [![GitHub commits](https://img.shields.io/github/commits-since/funilrys/Fasternix-Stratalorn/1.0.1.svg)](https://github.com/funilrys/Fasternix-Stratalorn/commits/master) [![Transifex API](https://img.shields.io/badge/Transifex%20API-v2-blue.svg)](https://docs.transifex.com/api/introduction)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub release](https://img.shields.io/github/release/funilrys/Fasternix-Stratalorn.svg)](https://github.com/funilrys/Fasternix-Stratalorn/releases/tag/1.1.0) [![GitHub commits](https://img.shields.io/github/commits-since/funilrys/Fasternix-Stratalorn/1.1.0.svg)](https://github.com/funilrys/Fasternix-Stratalorn/commits/master) [![Transifex API](https://img.shields.io/badge/Transifex%20API-v2-blue.svg)](https://docs.transifex.com/api/introduction)
 
 > Python module/library for saving the list of translators of a given Transifex project into a JSON file.
 
-## Freatures
+## Features
 
 - Works with python3.x and python2.x
 - Access Transifex project details
-- Get list of translators of a whole project and save the result into a JSON file
+- Get list of translators and save the result into a JSON file
+- Get list of translators and return the result in Python `dict` format
+- Get list of translators and return the result in Python `list` format
 
 ## Installation
 
 ### From Github
 
-```bash
+```shell
 https://github.com/funilrys/Fasternix-Stratalorn.git
 cd Fasternix-Stratalorn && python setup.py install
 ```
 
-## Example of usage
+## Examples of usage
+
+### Common usage
+
+The following will save the **list of translator** into `translators.json` in you **current location**.
 
 ```python
-# This save the output into 'translators.json' in your current location
 from fasternix_stratalorn import get
 
-get('funilrys','desktop-app')
+get('funilrys', 'desktop-app')
+```
+
+### Python `list` format
+
+The following will not save the **list of translator** into `translators.json` but it'll return a _python_ `list` of translators usernames.
+
+```python
+#!/bin/env python
+from fasternix_stratalorn import get
+
+translators = get('funilrys', 'desktop-app', save_in_file=False, return_list=True)
+print(translators)
+```
+
+### Python `dict` format
+
+The following will save the **list of translator** into `translators.json` and it'll return a _python_ `dict` of the translator's usernames.
+
+**Output format:** `{'translators':['user1','user2']}`
+
+```python
+#!/bin/env python
+from fasternix_stratalorn import get
+
+translators = get('funilrys', 'desktop-app', save_in_file=True, return_dict=True)
+print(translators)
 ```
 
 --------------------------------------------------------------------------------
