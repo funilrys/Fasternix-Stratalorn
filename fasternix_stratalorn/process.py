@@ -15,9 +15,10 @@ from subprocess import PIPE, Popen
 
 
 class Process(object):
-    """A class to manipulate shell commands
+    """
+    A class to manipulate shell commands.
 
-    :param command: A string, the command to execute
+    :param command: A string, the command to execute.
     """
 
     def __init__(self, command):
@@ -25,15 +26,18 @@ class Process(object):
         self.command = command
 
     def decode_output(self, to_decode):
-        """Decode the output of a shell command in order to be readable
+        """
+        Decode the output of a shell command in order to be readable.
 
-        :param to_decode: byte(s), Output of a command
+        :param to_decode: byte(s), Output of a command.
         """
 
         return to_decode.decode(self.DECODE_TYPE)
 
     def execute(self):
-        """Execute a given command"""
+        """
+        Execute a given command.
+        """
 
         process = Popen(self.command, stdout=PIPE, stderr=PIPE, shell=True)
         (output, error) = process.communicate()
