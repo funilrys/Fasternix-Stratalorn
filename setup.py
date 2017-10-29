@@ -15,7 +15,7 @@ from distutils.core import setup
 
 setup(
     name='fasternix_stratalorn',
-    version="1.1.0",
+    version="1.1.1",
     description='Python module/library for saving the list of translators of a given Transifex project into a JSON file.',
     long_description=open('README').read(),
     author='funilrys',
@@ -24,7 +24,12 @@ setup(
     url='https://github.com/funilrys/Fasternix-Stratalorn',
     platforms=['any'],
     packages=['fasternix_stratalorn'],
-    keywords=['Python', 'JSON', 'transifex', 'translator', 'translators'],
+    keywords=[
+        'Python',
+        'JSON',
+        'transifex',
+        'translator',
+        'translators'],
     classifiers=[
         'Environment :: Console',
         'Topic :: Internet',
@@ -33,8 +38,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License'
-    ],
+        'License :: OSI Approved :: MIT License'],
 )
 
 '''
