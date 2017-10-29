@@ -19,10 +19,11 @@ from .process import Process
 
 
 def write_file(content, destination):
-    """Write a content in a given file
+    """
+    Write a content in a given file.
 
-    :param content: A string, the content we have to write into the file
-    :param destination: A string, A path to a file where we're going to save the content
+    :param content: A string, the content we have to write into the file.
+    :param destination: A string, A path to a file where we're going to save the content.
     """
 
     with open(destination, 'w') as file:
@@ -30,10 +31,11 @@ def write_file(content, destination):
 
 
 def execute_save_cmd(command, destination):
-    """Execute and save the result of a command into a defined file.
+    """
+    Execute and save the result of a command into a defined file.
 
-    :param command: A string, the command to execute in shell format
-    :param destination: A string, the location where we're going to save the result(s)
+    :param command: A string, the command to execute in shell format.
+    :param destination: A string, the location where we're going to save the result(s).
     """
 
     result = Process(command).execute()
@@ -43,18 +45,20 @@ def execute_save_cmd(command, destination):
 
 
 def execute_return_cmd(command):
-    """Execute and return the result of a command.
+    """
+    Execute and return the result of a command.
 
-    :param command: A string, the command to execture in shell format
+    :param command: A string, the command to execture in shell format.
     """
 
     return Process(command).execute()
 
 
 def read_file(file_to_read):
-    """Read the content of a given file
+    """
+    Read the content of a given file.
 
-    :param file_to_read: A string, a path to the file we have to read
+    :param file_to_read: A string, a path to the file we have to read.
     """
 
     with open(file_to_read, 'r') as file:
@@ -63,18 +67,20 @@ def read_file(file_to_read):
 
 
 def convert_JSON_to_dict(data):
-    """Convert a JSON into a dictionary
+    """
+    Convert a JSON into a dictionary.
 
-    :param data: A string, a JSON formated string
+    :param data: A string, a JSON formated string.
     """
 
     return loads(data)
 
 
 def format_list(data):
-    """Sort and remove duplicate from a given list
+    """
+    Sort and remove duplicate from a given list.
 
-    :param data: A list, the list to format
+    :param data: A list, the list to format.
     """
     if(version_info[0] >= 3):
         return sorted(list(set(data)), key=str.lower)
@@ -82,10 +88,11 @@ def format_list(data):
 
 
 def save_dict_to_JSON(data, destination):
-    """Save a dictionary into a JSON format
+    """
+    Save a dictionary into a JSON format.
 
-    :param data: A dict
-    :param destination: A string, A path to a file where we're going to write the converted dict into a JSON format
+    :param data: A dict, the data to save.
+    :param destination: A string, A path to a file where we're going to write the converted dict into a JSON format.
     """
 
     with open(destination, 'w') as file:
@@ -93,6 +100,10 @@ def save_dict_to_JSON(data, destination):
 
 
 def clear_screen():
+    """
+    Clear the screen.
+    """
+
     if name == 'posix' or name == 'mac':
         system('clear')
     elif name == 'nt':
