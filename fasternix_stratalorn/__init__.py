@@ -18,7 +18,15 @@ from .helpers import clear_screen
 
 
 def get(username, project_slug, **args):
-    """Send data and perform Core()"""
+    """
+    Get the list of translators from a Transifex project.
+
+    :param username: A string, A Transifex username. (Must be a maintainer of the project)
+    :param project_slug: A string, A Transifex project_slug.
+    :param return_dict: A bool, True = return a dict.
+    :param return_list: A bool, True = return a list.
+    :param save_in_file: A bool, True = save in file.
+    """
 
     password = getpass('Transifex password: ')
     clear_screen()
